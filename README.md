@@ -1,6 +1,10 @@
 # Baseline — what agent-payment policies can and cannot refuse
 
-Submission #2 for NEAR HACKATHON 2026. Tracks: `thesis`, `security`.
+Submission #2 for NEAR HACKATHON 2026. Tracks: `security` (primary), `thesis` (secondary).
+The security case is the one this repository actually makes: a deployed policy contract, a
+matrix of what it refuses, and a defect the matrix found. The `thesis` track asks for a
+long-term investment thesis backed by on-chain analytics; what exists here is one 24-row run
+and a finding, not an investment thesis, and `docs/FINDINGS.md` says so where it matters.
 
 The public directory for this event lists **1043 submissions**. Of the first 480 with
 track data, **229 are in `security`**; of the 560 sampled, **74** use spending-policy
@@ -22,11 +26,11 @@ regression test that fails without the fix; what proves the repair is the post-f
 `7n6KhL91…` → `4idQpYLo…`, where the same policy refuses `per_day_exceeded`. Every hash that
 appears anywhere in this repository is re-checked by `node tools/check-evidence.mjs`.
 
-What this is **not**: the first re-runnable NEAR thesis. The thesis track already has
-entries that regenerate their figures from RPC — `Semilla1 NEAR Thesis` is the closest —
-so re-runnable evidence is a style, not a differentiator. The claim here is narrower, and
-it is the only one made: the subject is enforcement rather than economics, and the finding
-is a defect in the architecture the rest of the track shipped.
+What this is **not**: the first re-runnable artefact in this event — other entries
+regenerate their figures from RPC, so re-runnable evidence is a style, not a differentiator.
+The claim here is narrower, and it is the only one made: the subject is enforcement rather
+than economics, and the payload is a defect found by measuring, not an opinion formed by
+reading.
 
 ## Status — read this before the claim
 
@@ -46,7 +50,8 @@ distribution.
 ## Run it
 
 ```bash
-node thesis/tools/collect.mjs --account mandate-hackaton-7c1a.testnet
+npm install                           # near-api-js, playwright
+node tools/collect.mjs --account mandate-hackaton-7c1a.testnet
 ```
 
 or, from the repository root:
@@ -54,9 +59,10 @@ or, from the repository root:
 ```bash
 make thesis ACCOUNT=mandate-hackaton-7c1a.testnet
 make thesis-e2e                       # dataset ↔ JSON ↔ prose; ARGS=--online re-queries every tx
+make e2e                              # the judge view, executed rather than eyeballed
 ```
 
-That writes `thesis/data/state.json`: the contract's `stats`, `list_mandates` and
+That writes `data/state.json`: the contract's `stats`, `list_mandates` and
 `list_pending` views, the block height they were read at, and the address they came from.
 It reads; it never signs. With no network it exits `3` with a typed code
 (`rpc_unreachable`, `rpc_timeout`, `view_not_json`, `view_shape`) and leaves the previous

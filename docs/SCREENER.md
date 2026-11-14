@@ -6,11 +6,11 @@ any other file. Every row below is a literal act followed by what you see.
 ## 1. Read the live contract into a file
 
 ```bash
-node thesis/tools/collect.mjs --account mandate-hackaton-7c1a.testnet
+node tools/collect.mjs --account mandate-hackaton-7c1a.testnet
 ```
 
 → prints `collected 5 mandates, N pending at block <height>` and writes
-`thesis/data/state.json`. Open the file: `account`, `blockHeight`, `collectedAt` and
+`data/state.json`. Open the file: `account`, `blockHeight`, `collectedAt` and
 `explorer` identify the exact chain state, and `mandates[]` is the contract's own
 `list_mandates` payload, not a summary.
 
@@ -21,7 +21,7 @@ mandate count with `counts.mandates`.
 ## 2. Watch it refuse to invent data
 
 ```bash
-node thesis/tools/collect.mjs --account no-such-account-xyz.testnet
+node tools/collect.mjs --account no-such-account-xyz.testnet
 ```
 
 → `collect_failed: rpc_error ...`, exit code `3`, and **no file written**. The previous
@@ -29,7 +29,7 @@ dataset is still on disk, unchanged. This is the difference between a measuremen
 mock: the collector would rather fail than write a plausible zero.
 
 ```bash
-node thesis/tools/collect.mjs
+node tools/collect.mjs
 ```
 
 → usage line, exit code `2`. It will not guess an account.
@@ -37,7 +37,7 @@ node thesis/tools/collect.mjs
 ## 3. Confirm nothing here can spend
 
 ```bash
-grep -rn "sign\|KeyPair\|secret\|private" thesis/tools/ | grep -v "^thesis/tools/collect.mjs:.*//"
+grep -rn "sign\|KeyPair\|secret\|private" tools/ | grep -v "^tools/collect.mjs:.*//"
 ```
 
 → no hits outside comments. The collector makes two RPC calls (`status`, `query` with
@@ -59,7 +59,7 @@ grep -rn "sign\|KeyPair\|secret\|private" thesis/tools/ | grep -v "^thesis/tools
 ## 5. Run the spend matrix
 
 ```bash
-node thesis/tools/experiment.mjs --account mandate-hackaton-7c1a.testnet
+node tools/experiment.mjs --account mandate-hackaton-7c1a.testnet
 ```
 
 → creates one mandate per shape (per-transaction cap, daily ceiling, allowlist,
@@ -67,7 +67,7 @@ attestation binding, suspension, expiry, asset, chain, per-counterparty ceiling,
 balance, missing attestation, decision replay, unknown id, invalid policy), then executes
 24 attempts. Each line prints `ok` or `MISMATCH`,
 the expected code, the observed code, and the transaction hash. It writes
-`thesis/data/spends.json` with every row: `tx`, `explorer`, `expected`, `got`, latency.
+`data/spends.json` with every row: `tx`, `explorer`, `expected`, `got`, latency.
 
 Open any row's `explorer` link: an authorised row is a successful `spend`, a refused
 row is a failed transaction whose receipt log contains `violation: <code>`. That log is
@@ -78,11 +78,19 @@ A case that does not match its expectation still gets written, and the run exits
 A measurement that hides its surprises is not a measurement.
 
 ```bash
-node thesis/tools/experiment.mjs --account mandate-hackaton-7c1a.testnet --repeat 5
+node tools/experiment.mjs --account mandate-hackaton-7c1a.testnet --repeat 5
 ```
 
-→ five attempts per case (50 transactions). Repetition is how the model gets a spread
-rather than a single observation; `counts.byCode` in the file is the distribution.
+→ up to five attempts per case (24 cases × 5 = 120 transactions, not 50 — this line used
+to say 50, which was wrong: B-03). Repetition is how the model gets a spread rather than a
+single observation; `counts.byCode` in the file is the distribution.
+
+**Read the repeat mode with its limits.** Repeats reuse the same mandates, so some premises
+cannot be rebuilt a second time: the budget shape is already exhausted, a suspended mandate
+stays suspended, and the fixed replay decision has already been consumed. Those rows are
+written with `skipped` and a reason instead of being sent, and `counts.refused` excludes
+them — a row that was never sent was not refused. A distribution over repeats is therefore
+a distribution over the cases that could be repeated, and the dataset says which ones could.
 
 ## 8. `make thesis-e2e` — the artefacts must agree with each other
 
@@ -95,8 +103,9 @@ make thesis-e2e ARGS=--online    # also asks testnet whether every tx exists
 `1` when: a row has no tx or no absolute explorer link, a recorded outcome differs from
 its expectation, `counts` cannot be recomputed from the rows, `state.json` describes a
 different contract, the numbers quoted in `FINDINGS.md` or `README.md` stop matching the
-dataset, or a hash cited in the prose belongs to none of: the dataset, the fix deploy, the
-pre-fix run. `--online` exits `3` when no testnet endpoint answers, so an outage is never
+dataset or the recorded fix deploy. A hash from the pre-fix run is **not** accepted: the ids
+recorded for those rows were computed locally and do not resolve, so citing one is a failure
+rather than evidence (`docs/AUDIT-2026-11-14.md` F-4, B-02). `--online` exits `3` when no testnet endpoint answers, so an outage is never
 reported as a pass.
 
 Why it exists: the claim is that every figure is re-derivable and every hash is public.
@@ -118,7 +127,7 @@ make thesis-hygiene
   self (mandate-hackaton-7c1a.testnet): full=1 functionCall=0
 ```
 
-and writes `thesis/data/hygiene.json`: every account, its key counts, the largest
+and writes `data/hygiene.json`: every account, its key counts, the largest
 allowance, the block height and the list of shared accounts that were excluded. It fails
 with `wrong_network` if the endpoint is not testnet, and exits `3` if no endpoint answers.
 

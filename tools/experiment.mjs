@@ -417,7 +417,10 @@ async function main() {
     counts: {
       attempts: rows.length,
       authorised: rows.filter((r) => r.got === 'authorised').length,
-      refused: rows.filter((r) => r.got !== 'authorised').length,
+      // A skipped row is not a refusal: nothing was sent, so nothing was refused.
+      // Counting both as "refused" inflated the headline whenever a premise could
+      // not be rebuilt (B-03).
+      refused: rows.filter((r) => !r.skipped && r.got !== 'authorised').length,
       mismatches: mismatches.length,
       skipped: skipped.length,
       byCode: rows.reduce((acc, r) => ({ ...acc, [r.got]: (acc[r.got] ?? 0) + 1 }), {}),

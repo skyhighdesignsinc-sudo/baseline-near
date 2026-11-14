@@ -158,27 +158,30 @@ record('every transaction cited in the docs is accounted for by kind', () => {
   // DEPLOY: the contract deploy that shipped the fix. It is evidence for F-1 but it
   // is not a spend, so it can never appear as a row.
   const DEPLOY = new Set(['77th4RrA1DQQzxLVXQ6Ag2K6EnhHyqcBP3v47gXTLBVk']);
-  // HISTORIC: hashes from earlier runs that F-1 cites. The dataset holds one run by
-  // design, so every re-run replaces the file and these stop being rows — but they stay
-  // on chain and remain the evidence for the finding that produced them. Two are the
-  // pre-fix spends that should have been refused; two are the same case after the fix.
-  const HISTORIC = new Set([
-    'bYgsuPRCYi4ZNGgV6tskBaU8cfcQerVGea1WVAXdQw7',
-    'G1JZHxASLm14U9UaLuHcLVsUymW59HwpthuHTLg6xM2d',
-    'AkNHWAaVyobe7TLiuu8FAqSbP6GKSjZm9aDQoCLZwZQn',
-    'E8cYASoLZanuZGtaA6e766wnGNzdhV1QFsYCvjyCcny3',
-  ]);
+  // HISTORIC used to be an allowlist of four earlier-run hashes that FINDINGS.md had to
+  // cite. The 2026-11-14 audit showed none of them resolve on chain — they were ids the
+  // old tool computed locally — so the document stopped citing them. Keeping them as a
+  // requirement made this check demand that the prose cite dead hashes: the gate was
+  // enforcing the bug it was written to catch (B-02).
+  //
+  // The rule now is the opposite one: a hash may be cited only if it is a row in the
+  // current run or the recorded deploy. Nothing else is allowed, and the pre-fix rows are
+  // described in prose and by contract view instead.
+  const HISTORIC = new Set();
 
   const cited = new Set(findings.match(/[1-9A-HJ-NP-Za-km-z]{43,44}/g) ?? []);
-  assert(cited.size >= 4, 'FINDINGS.md cites fewer hashes than expected');
+  assert(cited.size >= 2, 'FINDINGS.md cites fewer hashes than expected');
   for (const hash of cited) {
     const kind = inDataSet.has(hash) ? 'spend' : DEPLOY.has(hash) ? 'deploy' : HISTORIC.has(hash) ? 'historic' : null;
     assert(kind !== null, `FINDINGS.md cites ${hash}, which is in none of: dataset, deploy, historic`);
   }
-  // The three kinds must all be present, or the finding has lost its evidence.
+  // The kinds that must be present, or the finding has lost its evidence.
   assert([...cited].some((h) => inDataSet.has(h)), 'FINDINGS.md cites no spend from the current run');
   assert([...cited].some((h) => DEPLOY.has(h)), 'FINDINGS.md no longer cites the fix deploy');
-  assert([...cited].some((h) => HISTORIC.has(h)), 'FINDINGS.md no longer cites the pre-fix spend');
+  // And the removed ones must stay removed.
+  for (const dead of ['G1JZHxASLm14U9UaLuHcLVsUymW59HwpthuHTLg6xM2d', 'E8cYASoLZanuZGtaA6e766wnGNzdhV1QFsYCvjyCcny3']) {
+    assert(!cited.has(dead), `FINDINGS.md cites ${dead}, which does not resolve on chain`);
+  }
 });
 
 if (process.argv.includes('--online')) {

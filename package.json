@@ -10,6 +10,9 @@
     "evidence": "node tools/check-evidence.mjs data/spends.json",
     "e2e:artefacts": "node tools/e2e.mjs"
   },
+  "dependencies": {
+    "near-api-js": "^7.4.0"
+  },
   "devDependencies": {
     "@playwright/test": "^1.56.0"
   }
