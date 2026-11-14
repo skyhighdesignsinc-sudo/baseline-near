@@ -81,6 +81,8 @@ per-run observations.
 
 ## Why the numbers can be checked at all
 
+A 63-second recording of the matrix is at `media/baseline-matrix.mp4`.
+
 `docs/CLAIMS.md` is the only list of sentences allowed in a README, a UI or a video, and every
 row names the artefact that proves it. `make thesis-e2e` fails when the prose and the dataset
 disagree, and `tools/check-evidence.mjs` fails when a hash stops resolving — which is how the

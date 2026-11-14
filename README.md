@@ -76,6 +76,11 @@ file untouched.
   submission #1; it reads a deployed contract as one data source among several.
 - Not a claim about mainnet. Everything here is testnet, and the footer says so.
 
+## Media
+
+- `media/baseline-matrix.mp4` — 63-second recording of the result matrix and the refusal table
+  on the judge site, with the same numbers the artefacts carry. One take, no cuts on figures.
+
 ## Licence
 
 MIT. Third-party names are cited, not endorsed.
