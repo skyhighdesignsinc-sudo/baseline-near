@@ -85,12 +85,13 @@ node tools/experiment.mjs --account mandate-hackaton-7c1a.testnet --repeat 5
 to say 50, which was wrong: B-03). Repetition is how the model gets a spread rather than a
 single observation; `counts.byCode` in the file is the distribution.
 
-**Read the repeat mode with its limits.** Repeats reuse the same mandates, so some premises
-cannot be rebuilt a second time: the budget shape is already exhausted, a suspended mandate
-stays suspended, and the fixed replay decision has already been consumed. Those rows are
-written with `skipped` and a reason instead of being sent, and `counts.refused` excludes
-them — a row that was never sent was not refused. A distribution over repeats is therefore
-a distribution over the cases that could be repeated, and the dataset says which ones could.
+**Read the repeat mode with its limits.** Repeats reuse the same mandates, so a later repetition
+does not get a fresh premise. The code detects **one** such case and records it as `skipped` with a
+reason: a UTC-day rollover mid-shape. It does **not** detect an exhausted budget, a mandate left
+suspended, or an already-consumed replay decision; those cases are sent again and can answer with a
+different code than the first repetition. The published dataset is a single pass (`--repeat 1`), so
+it does not depend on this; `counts.refused` still excludes skipped rows, because a row that was
+never sent was not refused. Making repeats rebuild their premises is the next step, not a claim.
 
 ## 8. `make thesis-e2e` — the artefacts must agree with each other
 
