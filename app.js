@@ -3,8 +3,11 @@
 const state = { all: [], filter: 'all', query: '' };
 
 const $ = (id) => document.getElementById(id);
+// USDC on this contract has 6 decimals, the same convention the dataset and
+// docs/FINDINGS.md use (20,000,000 = 20 USDC). Dividing by 1e7 here made every
+// amount on the page a tenth of the transaction it describes.
 const usdc = (raw) => {
-  const n = Number(raw ?? 0) / 1e7;
+  const n = Number(raw ?? 0) / 1e6;
   return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 
