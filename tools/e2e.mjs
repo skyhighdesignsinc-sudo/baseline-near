@@ -118,6 +118,52 @@ record('the recorded outcome is what the run expected', () => {
   }
 });
 
+// B-04: agreeing with itself is not evidence. Each shape/case names the rule that
+// is supposed to fire, so a row that says `per_tx_exceeded` for a 1.00 spend under
+// a 1.00 cap would fail here even though `got === expected`. The table is also
+// checked in the other direction: a key it names must exist in the run, so it
+// cannot drift into describing rows that were deleted.
+const SEMANTICS = {
+  'per_tx/inside': 'authorised',
+  'per_tx/over_cap': 'per_tx_exceeded',
+  'per_tx/zero': 'amount_zero',
+  'daily/first_20': 'authorised',
+  'daily/second_10': 'per_day_exceeded',
+  'allowlist/listed': 'authorised',
+  'allowlist/unlisted': 'counterparty_not_allowed',
+  'attestation/matching': 'authorised',
+  'attestation/off_by_one': 'attestation_mismatch',
+  'attestation/stale_policy': 'policy_changed',
+  'suspended/before': 'authorised',
+  'suspended/after_stop': 'mandate_suspended',
+  'expired/late': 'mandate_expired',
+  'asset/wrong_asset': 'asset_mismatch',
+  'chain/wrong_chain': 'chain_not_enabled',
+  'counterparty/first_8': 'authorised',
+  'counterparty/second_8': 'per_counterparty_day_exceeded',
+  'budget/first_8': 'authorised',
+  'budget/second_8': 'budget_exhausted',
+  'no_attestation/empty_quote': 'attestation_required',
+  'replay/first': 'authorised',
+  'replay/replay': 'decision_replayed',
+  'unknown_id/no_mandate': 'not_found',
+  'invalid_policy/escalate_over_cap': 'policy_invalid',
+};
+
+record('each row names the rule that fired, not just a code it agrees with', () => {
+  for (const row of spends.rows) {
+    const key = `${row.shape}/${row.case}`;
+    assert(key in SEMANTICS, `${key}: no semantic expectation is recorded for this shape/case`);
+    equal(row.got, SEMANTICS[key], `${key} rule`);
+  }
+  for (const key of Object.keys(SEMANTICS)) {
+    assert(
+      spends.rows.some((r) => `${r.shape}/${r.case}` === key),
+      `SEMANTICS names ${key}, which is not in the run`,
+    );
+  }
+});
+
 record('the counts are recomputed from the rows', () => {
   const rows = spends.rows;
   const authorised = rows.filter((r) => r.got === 'authorised').length;
