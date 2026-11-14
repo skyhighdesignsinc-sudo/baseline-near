@@ -81,7 +81,7 @@ per-run observations.
 
 ## Why the numbers can be checked at all
 
-A 63-second recording of the matrix is at `media/baseline-matrix.mp4`.
+A 59-second recording of the matrix, with each spoken row boxed, is at `media/baseline-matrix.mp4`.
 
 `docs/CLAIMS.md` is the only list of sentences allowed in a README, a UI or a video, and every
 row names the artefact that proves it. `make thesis-e2e` fails when the prose and the dataset

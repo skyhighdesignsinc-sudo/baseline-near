@@ -78,7 +78,7 @@ file untouched.
 
 ## Media
 
-- `media/baseline-matrix.mp4` — 63-second recording of the result matrix and the refusal table
+- `media/baseline-matrix.mp4` — 59-second recording of the result matrix and the refusal table
   on the judge site, with the same numbers the artefacts carry. One take, no cuts on figures.
 
 ## Licence
