@@ -263,5 +263,19 @@ export async function submit({ signerId, keyPair, receiverId, actionList, say = 
       );
     }
   }
-  return { txHash, explorer, failure: extractFailure(outcome), outcome };
+  // The id is what the chain says it is. Hashing our own borsh gives a candidate
+  // that can differ from the node's canonical re-serialisation, and recording the
+  // local value produced explorer links that looked right and opened to nothing.
+  const body = outcome?.result ?? outcome;
+  const onChain = body?.transaction?.hash ?? body?.transaction_outcome?.id ?? null;
+  if (onChain && onChain !== txHash) {
+    say(`  ${''.padEnd(18)} node reports ${onChain}; using the chain's id`);
+  }
+  const finalHash = onChain ?? txHash;
+  return {
+    txHash: finalHash,
+    explorer: `${EXPLORER}/txns/${finalHash}`,
+    failure: extractFailure(outcome),
+    outcome,
+  };
 }

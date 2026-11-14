@@ -27,7 +27,7 @@ is a defect in the architecture the rest of the track shipped.
 | Piece | State |
 |---|---|
 | collector (`tools/collect.mjs`) | **built and run** against `mandate-hackaton-7c1a.testnet`; writes `data/state.json` from contract views |
-| experiment (`tools/experiment.mjs`) | **built and run**: 14 policy shapes, 24 attempts, block 277558728 — 8 authorised, 16 refused, 0 mismatches |
+| experiment (`tools/experiment.mjs`) | **built and run**: 14 policy shapes, 24 attempts, block 277664211 — 8 authorised, 16 refused, 0 mismatches |
 | first finding (`docs/FINDINGS.md` F-1) | the daily ceiling never bound; root cause found, fixed, redeployed, and re-measured |
 | second finding (`docs/FINDINGS.md` F-3) | the field's own accounts: 16 of 24 keep a full-access key, and **3 of the 6 accounts presented as the agent** do too (`make thesis-hygiene`) |
 | model (derived figures) | not written — the counts above are per-run observations, not rates |

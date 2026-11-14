@@ -67,8 +67,8 @@ and is labelled as inference wherever it appears.
 
 ## F-2 — the matrix's own coverage, stated plainly
 
-Run `813e84f4af6a`: 24 attempts, 8 authorised, 16 refused, 0 mismatches, 0 skipped, block
-277558728.
+Run `11873d9d899d`: 24 attempts, 8 authorised, 16 refused, 0 mismatches, 0 skipped, block
+277664211.
 Fourteen policy shapes, one transaction per case, every row a hash on testnet.
 
 Codes observed, 17 distinct: `authorised`, `per_tx_exceeded`, `per_day_exceeded`,
@@ -83,9 +83,9 @@ balance exhaustion, suspension, expiry, the asset and chain checks and decision 
 each have a transaction refused for that reason — and, where the shape needs it, an
 authorised transaction before the refusal to show which one the rule bound.
 
-Two rows worth opening directly: `6NKpN6uif1bZzQuHpf1u5q2duMmBGUQSzHusqte5CgCm` is the spend
+Two rows worth opening directly: `GewJX6kgCcsU9HhJVWPEuhFFEr966u3k5pcd8vKWvEjL` is the spend
 refused because the owner had just suspended the mandate, and
-`5Dq6i2NSrv5bZ2gwPKJe74wxwVa9Xr3BVCJe2pfU9fX6` is the spend refused because the policy had
+`C6484KFSj29c2aKGFqyuaeSSRo3u8ZLeuTNKSQVX9bQA` is the spend refused because the policy had
 expired.
 
 **What this still does not cover.** `owner_only`, `attestor_only`, `request_not_pending`,

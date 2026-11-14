@@ -48,7 +48,7 @@ grep -rn "sign\|KeyPair\|secret\|private" thesis/tools/ | grep -v "^thesis/tools
 - No model and no write-up. The table in `README.md` says so. The experiment exists and
   has run once (24 attempts); one run is not a distribution.
 - ~~No coverage of the refusal surface~~ **closed 2026-11-13**: all sixteen refusal codes
-  `spend` can emit now appear in the matrix (run `813e84f4af6a`), plus `policy_invalid` on
+  `spend` can emit now appear in the matrix (run `11873d9d899d`), plus `policy_invalid` on
   the create path. The five codes on the owner, attestor and key paths (`owner_only`,
   `attestor_only`, `request_not_pending`, `unauthorized`, `access_key_missing`) remain
   unit-tested only, and `FINDINGS.md` F-2 says so.
