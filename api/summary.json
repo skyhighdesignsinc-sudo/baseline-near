@@ -1,0 +1,53 @@
+{
+  "schema": "baseline.site.summary/1",
+  "subject": {
+    "what": "A re-runnable matrix of 24 policy attempts against one deployed NEAR testnet contract.",
+    "account": "mandate-hackaton-7c1a.testnet",
+    "run": "11873d9d899d",
+    "blockHeight": 277664211,
+    "explorer": "https://testnet.nearblocks.io/address/mandate-hackaton-7c1a.testnet",
+    "startedAt": "2026-11-14T13:38:25.216Z",
+    "finishedAt": "2026-11-14T13:39:52.082Z"
+  },
+  "counts": {
+    "attempts": 24,
+    "authorised": 8,
+    "refused": 16,
+    "distinctCodes": 17,
+    "rowsWithTransaction": 24
+  },
+  "codes": [
+    "amount_zero",
+    "asset_mismatch",
+    "attestation_mismatch",
+    "attestation_required",
+    "authorised",
+    "budget_exhausted",
+    "chain_not_enabled",
+    "counterparty_not_allowed",
+    "decision_replayed",
+    "mandate_expired",
+    "mandate_suspended",
+    "not_found",
+    "per_counterparty_day_exceeded",
+    "per_day_exceeded",
+    "per_tx_exceeded",
+    "policy_changed",
+    "policy_invalid"
+  ],
+  "datasets": {
+    "rows": "./data/spends.json",
+    "thisSummary": "./api/summary.json"
+  },
+  "verification": {
+    "hashResolver": "node tools/check-evidence.mjs data/spends.json (from the repository root)",
+    "artefactAgreement": "node tools/e2e.mjs",
+    "explorerTemplate": "https://testnet.nearblocks.io/txns/{hash}"
+  },
+  "notClaimed": [
+    "no mainnet deployment",
+    "no audit",
+    "the 24 attempts are one run, not a distribution",
+    "the matrix measures the sibling submission’s contract"
+  ]
+}

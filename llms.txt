@@ -1,0 +1,42 @@
+# Baseline — machine-readable map
+
+This is a static page. There is no API server: the three files below are the whole
+surface, and all of them are fetched with a plain GET.
+
+## Files
+
+- /data/spends.json — the run. One object per attempt: {id, shape, case, expected,
+  got, matched, amount, vendor, mandate, tx, explorer}. "got" is the code the
+  contract returned; "expected" is what the run predicted. amount is in base units
+  (6 decimals: 20000000 = 20 USDC).
+- /api/summary.json — counts derived from that file, plus the run id and block height.
+- / — the human view, which renders the same JSON and computes nothing.
+
+## Identifiers
+
+- contract account: mandate-hackaton-7c1a.testnet
+- run: 11873d9d899d at block 277664211
+- 24 attempts, 8 authorised, 16 refused,
+  17 distinct outcome codes
+- every row with a "tx" resolves at https://testnet.nearblocks.io/txns/<tx>
+
+## How to check this without trusting it
+
+1. Fetch /data/spends.json; recompute the counts yourself.
+2. For any row, GET https://rpc.testnet.near.org with a tx status call for its hash.
+   A refusal is a failed transaction whose receipt log contains "violation: <code>".
+3. In the repository, `node tools/check-evidence.mjs data/spends.json` exits non-zero
+   when a single hash stops resolving, and `node tools/e2e.mjs` exits non-zero when
+   the prose and the dataset disagree.
+
+## What this does not claim
+
+- no mainnet deployment
+- no audit
+- the 24 attempts are one run, not a distribution
+- the matrix measures the sibling submission’s contract
+
+## Citing it
+
+Baseline (NEAR Hackathon 2026, testnet). If you quote a figure, quote the run id with
+it: 11873d9d899d.
