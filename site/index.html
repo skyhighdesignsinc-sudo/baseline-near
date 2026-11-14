@@ -133,6 +133,12 @@
           <li>Re-run the comparison: <code>node tools/e2e.mjs</code> — it fails if the write-up and the dataset disagree.</li>
         </ol>
         <p class="note" id="runline">run — · block —</p>
+        <p class="note">
+          For an agent rather than a reader: <a href="./llms.txt"><code>/llms.txt</code></a> maps the
+          surface, and <a href="./api/summary.json"><code>/api/summary.json</code></a> carries the
+          counts above with the run id they belong to. Both are plain GETs — there is no server to
+          ask and nothing to authenticate.
+        </p>
       </section>
     </main>
 

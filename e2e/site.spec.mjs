@@ -96,6 +96,25 @@ test.describe('baseline judge view', () => {
     await expect(overCap.locator('td.amt')).toHaveText('40.00');
   });
 
+  test('the machine surface is fetchable and agrees with the page', async ({ request }) => {
+    const map = await request.get('/llms.txt');
+    expect(map.status()).toBe(200);
+    const body = await map.text();
+    expect(body).toContain('/data/spends.json');
+    expect(body).toContain(`run: 11873d9d899d`);
+
+    const summary = await request.get('/api/summary.json');
+    expect(summary.status()).toBe(200);
+    const json = await summary.json();
+    expect(json.counts).toMatchObject({
+      attempts: ROWS,
+      authorised: AUTHORISED,
+      refused: REFUSED,
+      distinctCodes: CODES,
+    });
+    expect(json.codes).toHaveLength(CODES);
+  });
+
   test('the method section names the verifier a reader can run', async ({ page }) => {
     await expect(page.locator('#method')).toContainText('check-evidence.mjs');
     await expect(page.locator('#method')).toContainText('e2e.mjs');
