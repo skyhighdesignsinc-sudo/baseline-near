@@ -1,0 +1,133 @@
+{
+  "schema": 1,
+  "source": "contract views, read over RPC",
+  "account": "mandate-hackaton-7c1a.testnet",
+  "explorer": "https://testnet.nearblocks.io/address/mandate-hackaton-7c1a.testnet",
+  "collectedAt": "2026-11-07T22:16:20.711Z",
+  "blockHeight": 276690163,
+  "elapsedMs": 12916,
+  "counts": {
+    "mandates": 5,
+    "pending": 0,
+    "settled": 4
+  },
+  "stats": {
+    "total_mandates": 5,
+    "total_pending": 0,
+    "total_settled": 4,
+    "total_authorised": "61000000"
+  },
+  "mandates": [
+    {
+      "id": "m1",
+      "owner": "mandate-hackaton-7c1a.testnet",
+      "agent": "agent.testnet",
+      "policy_hash": "a67e5f7833e89785bd1b1ca62174df2224ede8db80c725408c9f8d4c2fcf32fd",
+      "policy_rev": 1,
+      "asset": "USDC",
+      "balance": "100000000",
+      "spent_total": "0",
+      "spent_day": "0",
+      "day_index": 20763893286,
+      "suspended": false,
+      "per_tx": "30000000",
+      "per_day": "90000000",
+      "escalate_over": "15000000",
+      "expires_at_block": 0,
+      "require_attestation": true,
+      "chains": [
+        "base_sepolia"
+      ],
+      "settled_count": 0
+    },
+    {
+      "id": "m2",
+      "owner": "mandate-hackaton-7c1a.testnet",
+      "agent": "mandate-hackaton-7c1a.testnet",
+      "policy_hash": "a67e5f7833e89785bd1b1ca62174df2224ede8db80c725408c9f8d4c2fcf32fd",
+      "policy_rev": 1,
+      "asset": "USDC",
+      "balance": "75000000",
+      "spent_total": "25000000",
+      "spent_day": "13000000",
+      "day_index": 20763897163,
+      "suspended": false,
+      "per_tx": "30000000",
+      "per_day": "90000000",
+      "escalate_over": "15000000",
+      "expires_at_block": 0,
+      "require_attestation": true,
+      "chains": [
+        "base_sepolia"
+      ],
+      "settled_count": 2
+    },
+    {
+      "id": "m3",
+      "owner": "mandate-hackaton-7c1a.testnet",
+      "agent": "mandate-hackaton-7c1a.testnet",
+      "policy_hash": "a67e5f7833e89785bd1b1ca62174df2224ede8db80c725408c9f8d4c2fcf32fd",
+      "policy_rev": 1,
+      "asset": "USDC",
+      "balance": "88000000",
+      "spent_total": "12000000",
+      "spent_day": "12000000",
+      "day_index": 20763898990,
+      "suspended": false,
+      "per_tx": "30000000",
+      "per_day": "90000000",
+      "escalate_over": "15000000",
+      "expires_at_block": 0,
+      "require_attestation": true,
+      "chains": [
+        "base_sepolia"
+      ],
+      "settled_count": 0
+    },
+    {
+      "id": "m4",
+      "owner": "mandate-hackaton-7c1a.testnet",
+      "agent": "mandate-hackaton-7c1a.testnet",
+      "policy_hash": "a67e5f7833e89785bd1b1ca62174df2224ede8db80c725408c9f8d4c2fcf32fd",
+      "policy_rev": 1,
+      "asset": "USDC",
+      "balance": "88000000",
+      "spent_total": "12000000",
+      "spent_day": "12000000",
+      "day_index": 20763910227,
+      "suspended": false,
+      "per_tx": "30000000",
+      "per_day": "90000000",
+      "escalate_over": "15000000",
+      "expires_at_block": 0,
+      "require_attestation": true,
+      "chains": [
+        "base_sepolia"
+      ],
+      "settled_count": 1
+    },
+    {
+      "id": "m5",
+      "owner": "mandate-hackaton-7c1a.testnet",
+      "agent": "mandate-hackaton-7c1a.testnet",
+      "policy_hash": "a67e5f7833e89785bd1b1ca62174df2224ede8db80c725408c9f8d4c2fcf32fd",
+      "policy_rev": 1,
+      "asset": "USDC",
+      "balance": "88000000",
+      "spent_total": "12000000",
+      "spent_day": "12000000",
+      "day_index": 20763951075,
+      "suspended": false,
+      "per_tx": "30000000",
+      "per_day": "90000000",
+      "escalate_over": "15000000",
+      "expires_at_block": 0,
+      "require_attestation": true,
+      "chains": [
+        "base_sepolia"
+      ],
+      "settled_count": 1
+    }
+  ],
+  "pending": []
+}

@@ -1,0 +1,259 @@
+{
+ "schema": 1,
+ "source": "view_access_key_list over public testnet RPC, accounts named in 11 audited READMEs",
+ "collectedAt": "2026-11-13T19:40:00.033Z",
+ "blockHeight": 277554225,
+ "method": "README → *.testnet account ids → access keys; shared infrastructure excluded by name",
+ "sharedExcluded": [
+  "rpc.testnet",
+  "archival-rpc.testnet",
+  "helper.testnet",
+  "wrap.testnet",
+  "explorer.testnet",
+  "token.testnet",
+  "alice.testnet",
+  "mallory.testnet",
+  "evil.testnet",
+  "attacker.testnet",
+  "api-provider.testnet"
+ ],
+ "summary": {
+  "repos": 11,
+  "named": 35,
+  "live": 35,
+  "sharedExcluded": 11,
+  "project": 24,
+  "projectWithFullAccess": 16,
+  "projectWithUnrestrictedMethodNames": 7,
+  "agentNamed": 6,
+  "agentNamedWithFullAccess": 3
+ },
+ "self": {
+  "account": "mandate-hackaton-7c1a.testnet",
+  "exists": true,
+  "keys": 1,
+  "fullAccess": 1,
+  "functionCall": 0,
+  "unrestrictedMethodNames": 0,
+  "maxAllowanceNear": 0,
+  "note": "the contract account of submission #1: it holds a deploy key, which is why C25 is about the agent key and not this one"
+ },
+ "rows": [
+  {
+   "account": "agentshield-recipient-7bb4a0df1o77.testnet",
+   "exists": true,
+   "keys": 0,
+   "fullAccess": 0,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "vault.agentshield-mag-1d2f78801994.testnet",
+   "exists": true,
+   "keys": 0,
+   "fullAccess": 0,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "agentshield-agent-0359da1630bb.testnet",
+   "exists": true,
+   "keys": 3,
+   "fullAccess": 1,
+   "functionCall": 2,
+   "unrestrictedMethodNames": 2,
+   "maxAllowanceNear": 0.09793045600292581
+  },
+  {
+   "account": "agentshield-recipient-7bb4a0df1077.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "revocation.agentshield-mag-1d2f78801994.testnet",
+   "exists": true,
+   "keys": 0,
+   "fullAccess": 0,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "vault.aegis-cfo-cz.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "aegis-attacker-cz.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "agent.aegis-cfo-cz.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 0,
+   "functionCall": 1,
+   "unrestrictedMethodNames": 1,
+   "maxAllowanceNear": 0.24493232045627492
+  },
+  {
+   "account": "yourname-aegis.testnet",
+   "exists": true,
+   "keys": 0,
+   "fullAccess": 0,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "leash-wallet-44846.testnet",
+   "exists": true,
+   "keys": 2,
+   "fullAccess": 1,
+   "functionCall": 1,
+   "unrestrictedMethodNames": 1,
+   "maxAllowanceNear": 0.2487703330929219
+  },
+  {
+   "account": "leash-owner-44846.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "leash-shop-44846.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "leash-vault-pch.testnet",
+   "exists": true,
+   "keys": 2,
+   "fullAccess": 1,
+   "functionCall": 1,
+   "unrestrictedMethodNames": 1,
+   "maxAllowanceNear": 0.481773006642318
+  },
+  {
+   "account": "leash-owner-pch.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "leash-usd-pch.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "beauty-vendor.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "vault2.agentvault-owner.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "agentvault-owner.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "agent2.agentvault-owner.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 0,
+   "functionCall": 1,
+   "unrestrictedMethodNames": 1,
+   "maxAllowanceNear": 0.2491640572306644
+  },
+  {
+   "account": "allowance-demo-07515.testnet",
+   "exists": true,
+   "keys": 2,
+   "fullAccess": 0,
+   "functionCall": 2,
+   "unrestrictedMethodNames": 2,
+   "maxAllowanceNear": 0.4986655209683348
+  },
+  {
+   "account": "allowance-arena-07515.testnet",
+   "exists": true,
+   "keys": 2,
+   "fullAccess": 0,
+   "functionCall": 2,
+   "unrestrictedMethodNames": 2,
+   "maxAllowanceNear": 0.5
+  },
+  {
+   "account": "vendor.acme-test-07515.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "mallory.acme-test-07515.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  },
+  {
+   "account": "vault.spact-ileri2.testnet",
+   "exists": true,
+   "keys": 1,
+   "fullAccess": 1,
+   "functionCall": 0,
+   "unrestrictedMethodNames": 0,
+   "maxAllowanceNear": 0
+  }
+ ]
+}
