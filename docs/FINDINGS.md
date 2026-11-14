@@ -16,8 +16,15 @@ transaction is the evidence.
 
 | # | amount | expected | observed | tx |
 |---|---|---|---|---|
-| 1 | 20 USDC | authorised | authorised | `bYgsuPRCYi4ZNGgV6tskBaU8cfcQerVGea1WVAXdQw7` |
-| 2 | 10 USDC | `per_day_exceeded` | **authorised** | `G1JZHxASLm14U9UaLuHcLVsUymW59HwpthuHTLg6xM2d` |
+| 1 | 20 USDC | authorised | authorised | *(id not recorded)* |
+| 2 | 10 USDC | `per_day_exceeded` | **authorised** | *(id not on chain)* |
+
+**Why those two cells have no hash.** The ids this run wrote were computed locally before
+`tools/near-tx.mjs` was fixed to record the node's canonical `transaction.hash`, and neither
+resolves on testnet. A hash that does not resolve is not evidence, so they are removed rather
+than kept as decoration. What is left is the contract view below, which is the actual
+observation, and the regression test that fails without the fix. The post-fix rows further
+down *are* on chain and were re-checked.
 
 20 + 10 exceeds the 25 USDC ceiling, so the second spend should have been refused. The
 contract view afterwards:
@@ -42,12 +49,15 @@ counter also moved ~195 between two calls seconds apart (195 × 86.4 ms ≈ 17 s
 `DAY_NS = 86_400_000_000_000`, plus the regression test `daily_ceiling_spans_blocks`
 (two spends one second apart must hit the ceiling). 28 contract tests pass.
 
-**Same case, after the fix** — mandate `m15`, run `2e6c03b0965c`, block 276691923:
+**Same case, after the fix** — run `11873d9d899d`, block 277664211:
 
 | # | amount | expected | observed | tx |
 |---|---|---|---|---|
-| 1 | 20 USDC | authorised | authorised | `AkNHWAaVyobe7TLiuu8FAqSbP6GKSjZm9aDQoCLZwZQn` |
-| 2 | 10 USDC | `per_day_exceeded` | `per_day_exceeded` | `E8cYASoLZanuZGtaA6e766wnGNzdhV1QFsYCvjyCcny3` |
+| 1 | 20 USDC | authorised | authorised | `7n6KhL91pHTmXxdQ3hsXZb6hfZGccwc3MeX2Bzq7Fcst` |
+| 2 | 10 USDC | `per_day_exceeded` | `per_day_exceeded` | `4idQpYLo3yH792972Y9d2PESDBeaAvADPjpDPignN7p6` |
+
+Both of these resolve; they are re-checked by `node tools/check-evidence.mjs data/spends.json`
+(24/24) and by `make thesis-e2e ARGS=--online`.
 
 **Why this counts as a finding and not a footnote.** Before the fix, submission #1 would
 have shipped a per-day ceiling that refused nothing, which is the first claim a security

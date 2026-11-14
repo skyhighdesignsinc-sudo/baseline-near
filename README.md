@@ -9,12 +9,18 @@ of the six shipping systems beside them: NEAR Intents' Agent API, contract manda
 custody, wallet policy engines, session keys, consensus covenants — publishes what it can
 refuse. None publishes a re-runnable matrix over its own policy surface.
 
-This repository is that matrix, aimed at one deployed contract: four policy shapes, ten
+This repository is that matrix, aimed at one deployed contract: fourteen policy shapes, 24
 attempts, each row carrying a typed refusal code or a transaction hash, and a command that
-fails when the numbers and the prose stop agreeing. It found a real defect: a 25 USDC
-daily ceiling that authorised 30 USDC, because a "day" was 86.4 milliseconds long. Fixed,
-redeployed and re-measured; both the failing and the refusing transaction are on chain
-(`docs/FINDINGS.md` F-1).
+fails when the numbers and the prose stop agreeing. It found a real defect: a 25 USDC daily
+ceiling that authorised 30 USDC, because a "day" was 86.4 milliseconds long. Fixed,
+redeployed and re-measured (`docs/FINDINGS.md` F-1).
+
+The pre-fix transaction itself is **not** cited: the id recorded for it was computed locally
+and does not resolve on chain, so it was removed rather than kept as decoration. What proves
+the defect is the contract view it left (`spent_day` resetting between blocks) and the
+regression test that fails without the fix; what proves the repair is the post-fix pair
+`7n6KhL91…` → `4idQpYLo…`, where the same policy refuses `per_day_exceeded`. Every hash that
+appears anywhere in this repository is re-checked by `node tools/check-evidence.mjs`.
 
 What this is **not**: the first re-runnable NEAR thesis. The thesis track already has
 entries that regenerate their figures from RPC — `Semilla1 NEAR Thesis` is the closest —

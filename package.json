@@ -1,0 +1,16 @@
+{
+  "name": "baseline-near",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "What an agent-payment policy actually refuses: a re-runnable matrix against one deployed NEAR testnet contract.",
+  "scripts": {
+    "e2e": "playwright test",
+    "site": "node tools/serve-static.mjs 4180",
+    "evidence": "node tools/check-evidence.mjs data/spends.json",
+    "e2e:artefacts": "node tools/e2e.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0"
+  }
+}
