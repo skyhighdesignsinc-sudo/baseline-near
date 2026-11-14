@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Baseline — what an agent spending policy actually refuses</title>
+    <meta
+      name="description"
+      content="24 attempts against a deployed NEAR testnet contract: 8 authorised, 16 refused, 17 typed codes. Every transaction hash resolves on chain."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="brand">
+        <span class="mark">≡</span>
+        <strong>Baseline</strong>
+      </div>
+      <nav>
+        <a href="#matrix" class="on">Matrix</a>
+        <a href="#coverage">Coverage</a>
+        <a href="#method">Method</a>
+      </nav>
+      <div class="ctx">
+        <span>REPLAY OF A RECORDED RUN</span>
+        <span class="dot">·</span>
+        <span>testnet</span>
+        <span class="dot">·</span>
+        <span id="ctx-account">account —</span>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">THE MEASUREMENT, NOT THE CLAIM</p>
+        <h1>What an agent spending policy actually refuses</h1>
+        <p class="lede">
+          Fourteen policy shapes, twenty-four attempts, one transaction each against a contract on
+          NEAR testnet. Every refusal carries a typed code. Every hash below opens on an explorer.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="k">Attempts</span>
+            <strong id="s-attempts">—</strong>
+            <span class="sub" id="s-block">block —</span>
+          </div>
+          <div class="stat">
+            <span class="k">Authorised</span>
+            <strong id="s-auth">—</strong>
+            <span class="sub">inside the policy</span>
+          </div>
+          <div class="stat">
+            <span class="k">Refused</span>
+            <strong id="s-refused">—</strong>
+            <span class="sub" id="s-codes">— distinct codes</span>
+          </div>
+          <div class="stat ok">
+            <span class="k">Hashes resolving</span>
+            <strong id="s-verified">—</strong>
+            <span class="sub">checked at build time</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="matrix">
+        <div class="sechead">
+          <h2>The run, case by case</h2>
+          <p>Click any row to see the transaction it left behind.</p>
+        </div>
+
+        <div class="controls">
+          <div class="filters" id="filters">
+            <button data-filter="all" class="on">all <span id="c-all">—</span></button>
+            <button data-filter="authorised">authorised <span id="c-auth">—</span></button>
+            <button data-filter="refused">refused <span id="c-refused">—</span></button>
+          </div>
+          <input id="search" type="search" placeholder="filter by code, shape or amount" aria-label="filter rows" />
+        </div>
+
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th class="num">#</th>
+              <th>Shape</th>
+              <th>Case</th>
+              <th>Expected</th>
+              <th>Observed</th>
+              <th class="amt">Amount</th>
+              <th class="res">Result</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <p class="hint" id="rowcount">—</p>
+      </section>
+
+      <section id="detail" class="detail" hidden>
+        <div class="sechead">
+          <h2 id="d-title">Transaction</h2>
+          <p id="d-sub">—</p>
+        </div>
+        <dl class="kv">
+          <div><dt>Hash</dt><dd id="d-hash" class="mono">—</dd></div>
+          <div><dt>Mandate</dt><dd id="d-mandate" class="mono">—</dd></div>
+          <div><dt>Amount</dt><dd id="d-amount" class="mono">—</dd></div>
+          <div><dt>Vendor</dt><dd id="d-vendor" class="mono">—</dd></div>
+        </dl>
+        <a id="d-link" class="open" href="#" target="_blank" rel="noreferrer">Open on testnet explorer →</a>
+      </section>
+
+      <section id="coverage">
+        <div class="sechead">
+          <h2>What the matrix covers</h2>
+          <p>Codes observed in this run. A code missing here is a rule nobody tested.</p>
+        </div>
+        <ul class="codes" id="codes"></ul>
+        <p class="note">
+          Not covered, and stated rather than implied: <code>owner_only</code>,
+          <code>attestor_only</code>, <code>request_not_pending</code>, <code>unauthorized</code> and
+          <code>access_key_missing</code> are not reachable from <code>spend</code>; the contract's
+          unit tests cover them, not this matrix.
+        </p>
+      </section>
+
+      <section id="method">
+        <div class="sechead">
+          <h2>How to check this without trusting the page</h2>
+        </div>
+        <ol class="steps">
+          <li>Take any hash from the table and open it on <code>testnet.nearblocks.io</code>. The refusal code is in the receipt, not in this page.</li>
+          <li>Re-run the verifier: <code>node tools/check-evidence.mjs data/spends.json</code> — it exits non-zero if a single hash stops resolving.</li>
+          <li>Re-run the comparison: <code>node tools/e2e.mjs</code> — it fails if the write-up and the dataset disagree.</li>
+        </ol>
+        <p class="note" id="runline">run — · block —</p>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>Baseline · NEAR HACKATHON 2026 · testnet only, no mainnet funds</span>
+      <span class="mono" id="foot-account">—</span>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
